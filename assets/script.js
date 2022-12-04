@@ -1,4 +1,5 @@
-var buttonEl = document.getElementById("ID OF BUTTON");
+var recipeFormEl = document.querySelector("#recipe-search");
+var beverageFormEl = document.querySelector("#beverage-search");
 
 // Beverage API permissions
 const bevOptions = {
@@ -18,33 +19,44 @@ const recipeOptions = {
   },
 };
 
-// Search function
-var userSearch = function (event) {
+// Recipe search function
+var userRecipeInput = function (event) {
   event.preventDefault();
-  var searchInput = document.getElementById("FORM INPUT FIELD ID").value;
-  console.log(searchInput);
-  beverageSearch(searchInput);
+  var recSearchInput = document.getElementById("requested-recipe").value;
+  console.log(recSearchInput);
+  recipeSearch(recSearchInput);
 };
 
-// Beverage Fetch code from origin
+// Beverage search function
+var userBevInput = function (event) {
+  event.preventDefault();
+  var bevSearchInput = document.getElementById("requested-beverage").value;
+  console.log(bevSearchInput);
+  beverageSearch(bevSearchInput);
+};
 
-fetch(
-  "https://cocktail-by-api-ninjas.p.rapidapi.com/v1/cocktail?name=bloody%20mary",
-  bevOptions
-)
-  .then((response) => response.json())
-  // .then((response) => console.log(response))
-  .then((response) => console.log(response[0].ingredients))
-  .catch((err) => console.error(err));
+// Recipe fetch code
+var recipeSearch = function (recipeReq) {
+  var recipeQueryURL =
+    "https://recipe-by-api-ninjas.p.rapidapi.com/v1/recipe?query=" + recipeReq;
+  console.log(recipeQueryURL);
+  fetch(recipeQueryURL, recipeOptions)
+    .then((response) => response.json())
+    .then((response) => console.log(response))
+    .catch((err) => console.error(err));
+};
 
-// Recipe Fetch code from origin
+// Beverage fetch code
+var beverageSearch = function (bevReq) {
+  var bevQueryURL =
+    "https://cocktail-by-api-ninjas.p.rapidapi.com/v1/cocktail?ingredients=" +
+    bevReq;
+  console.log(bevQueryURL);
+  fetch(bevQueryURL, bevOptions)
+    .then((response) => response.json())
+    .then((response) => console.log(response))
+    .catch((err) => console.error(err));
+};
 
-fetch(
-  "https://recipe-by-api-ninjas.p.rapidapi.com/v1/recipe?query=italian%20wedding%20soup",
-  recipeOptions
-)
-  .then((response) => response.json())
-  .then((response) => console.log(response[0].ingredients))
-  .catch((err) => console.error(err));
-
-buttonEl.addEventListener("click", userSearch);
+recipeFormEl.addEventListener("submit", userRecipeInput);
+beverageFormEl.addEventListener("submit", userBevInput);

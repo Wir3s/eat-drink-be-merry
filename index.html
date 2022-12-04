@@ -8,37 +8,35 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
 </head>
 <body>
-<div class="columns is-3 is-flex-direction-row is-justify-content-space-around is-align-items-flex-start">
-    <div class="column box is-one-quarter">
-        <h1 class="has-text-centered">Recipes</h1>
-            
-            <input class="input" placeholder="Search"> </input> 
-                <div>
-                    <h2 class="has-text-centered">Results</h2>
-                </div>
+    <div class="columns is-3 is-flex-direction-row is-justify-content-space-around is-align-items-flex-start">
+        <div class="column box is-one-quarter">
+            <h1 class="has-text-centered">Recipes</h1>
+            <form id="recipe-search">
+                <input type="search"  id="requested-recipe" class="input" placeholder="Search for a recipe">
+                <button type="submit" id="recipe-button">Search</button>
+            </form>
+            <div>
+                <h2 class="has-text-centered">Results</h2>
+            </div>
+        </div>
 
+        <div class="column box is-one-quarter">
+            <h1 class="has-text-centered">Cocktails</h1>
+            <form id="beverage-search">
+                <input type="search"  id="requested-beverage" class="input" placeholder="Search for a drink">
+                <button type="submit" id="beverage-button">Search</button>
+            </form>
+            <div>
+                <h2 class="has-text-centered">Results</h2>
+            </div>
+        </div>
     </div>
-
-    <div class="column box is-one-quarter">
-        <h1 class="has-text-centered">Cocktails</h1>
-            
-                <input class="input" placeholder="Search"> </input> 
-                <div>
-                    <h2 class="has-text-centered">Results</h2>
-                </div>
-
-    </div>
-</div>
 
 
     <div>
         <h1 class="box">Shopping List</h1>
     </div>
-
-    
-</head>
-<body>
-    
+  
     <script src="./assets/script.js"></script>
 </body>
 </html>
