@@ -2,6 +2,7 @@ var recipeFormEl = document.querySelector("#recipe-search");
 var beverageFormEl = document.querySelector("#beverage-search");
 var recResultsEl = document.getElementById("rec-results-list");
 var bevResultsEl = document.getElementById("bev-results-list");
+var populateBox = document.getElementsByClassName("box");
 
 // Beverage API permissions
 const bevOptions = {
@@ -53,11 +54,19 @@ var recipeSearch = function (recipeReq) {
 // Displays recipes
 var displayRecipes = function (recipeArray) {
   console.log(recipeArray);
+
   for (let index = 0; index < recipeArray.length; index++) {
+    localStorage.setItem(
+      recipeArray[index].title,
+      JSON.stringify(recipeArray[index])
+    );
     var createList = document.createElement("li");
     var createLink = document.createElement("button");
+    createLink.setAttribute("class", "js-modal-trigger");
+    createLink.setAttribute("data-target", "modal-js-example");
     createLink.textContent = recipeArray[index].title;
     console.log(createList);
+
     recResultsEl.appendChild(createList);
     createList.appendChild(createLink);
   }
@@ -67,8 +76,58 @@ var displayRecipes = function (recipeArray) {
 var buttonClickHandler = function (event) {
   var clickedRecipe = event.target.textContent;
   console.log(clickedRecipe);
-  // need to pass array into function to display modal
+  // document.addEventListener("DOMContentLoaded", () => {
+  // Functions to open and close a modal
+  function openModal($el) {
+    $el.classList.add("is-active");
+  }
+
+  function closeModal($el) {
+    $el.classList.remove("is-active");
+  }
+
+  function closeAllModals() {
+    (document.querySelectorAll(".modal") || []).forEach(($modal) => {
+      closeModal($modal);
+    });
+  }
+
+  // Add a click event on buttons to open a specific modal
+  (document.querySelectorAll(".js-modal-trigger") || []).forEach(($trigger) => {
+    const modal = $trigger.dataset.target;
+    const $target = document.getElementById(modal);
+
+    $trigger.addEventListener("click", () => {
+      console.log("test");
+      openModal($target);
+    });
+  });
+
+  // Add a click event on various child elements to close the parent modal
+  (
+    document.querySelectorAll(
+      ".modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button"
+    ) || []
+  ).forEach(($close) => {
+    const $target = $close.closest(".modal");
+
+    $close.addEventListener("click", () => {
+      closeModal($target);
+    });
+  });
+
+  // Add a keyboard event to close all modals
+  document.addEventListener("keydown", (event) => {
+    const e = event || window.event;
+
+    if (e.keyCode === 27) {
+      // Escape key
+      closeAllModals();
+    }
+  });
 };
+
+// Display modal
 
 // Beverage fetch code
 var beverageSearch = function (bevReq) {
