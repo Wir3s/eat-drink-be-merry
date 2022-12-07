@@ -3,6 +3,10 @@ var beverageFormEl = document.querySelector("#beverage-search");
 var recResultsEl = document.getElementById("rec-results-list");
 var bevResultsEl = document.getElementById("bev-results-list");
 var populateBox = document.getElementsByClassName("box");
+var recTitleModal = document.getElementById("write-recipe-title");
+var recServModal = document.getElementById("write-recipe-servings");
+var recIngModal = document.getElementById("write-recipe-ingredients");
+var recInsModal = document.getElementById("write-recipe-instructions");
 
 // Beverage API permissions
 const bevOptions = {
@@ -95,6 +99,12 @@ var buttonClickHandler = function (event) {
   // Add a click event on buttons to open a specific modal
   (document.querySelectorAll(".js-modal-trigger") || []).forEach(($trigger) => {
     const modal = $trigger.dataset.target;
+    const recipeModal = JSON.parse(localStorage.getItem(clickedRecipe));
+    console.log(recipeModal);
+    recTitleModal.innerHTML = recipeModal.title;
+    recServModal.innerHTML = recipeModal.servings;
+    recIngModal.innerHTML = recipeModal.ingredients;
+    recInsModal.innerHTML = recipeModal.instructions;
     const $target = document.getElementById(modal);
 
     $trigger.addEventListener("click", () => {
