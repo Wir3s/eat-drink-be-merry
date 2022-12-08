@@ -45,22 +45,28 @@
     
     <div id="modal-js-example" class="modal">
         <div class="modal-background"></div>
-      
-        <div class="modal-content">
-          <div class="box">
-            <h1 id ="write-recipe-title"></h1> <!-- Food Title-->
-            <h1 id ="drink-name"></h1> <!-- Beverage Name-->
-            <h2 id ="write-recipe-servings"></h2>
-            <br />
-            <h3>Ingredients:</h3>
-            <p id ="write-recipe-ingredients"></p> <!-- Food ingredients-->
-            <ul id ="ingredients"></ul>  <!-- Beverage ingredients-->
-            <br />
-            <h3>Instructions:</h3>
-            <p id ="write-recipe-instructions"></p> <!-- Food instructions-->
-            <p id ="instructions"></p> <!-- Beverage instructions-->
-            
-            
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <p class="modal-card-title" id="write-recipe-title">Recipe</p>
+                <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+        <!--     <h1 id ="write-recipe-title"></h1>  Food Title-->
+                <h1 id ="drink-name"></h1> <!-- Beverage Name-->
+                <h2 id ="write-recipe-servings"></h2>
+                <br />
+                <h3>Ingredients:</h3>
+                <p id ="write-recipe-ingredients"></p> <!-- Food ingredients-->
+                <ul id ="ingredients"></ul>  <!-- Beverage ingredients-->
+                <br />
+                <h3>Instructions:</h3>
+                <p id ="write-recipe-instructions"></p> <!-- Food instructions-->
+                <p id ="instructions"></p> <!-- Beverage instructions-->
+            </section>
+            <footer class="modal-card-foot">
+                <button class="button is-success">Save changes</button>
+                <button class="button">Cancel</button>
+            </footer>
             
 
           </div>
@@ -69,6 +75,5 @@
         <button class="modal-close is-large" aria-label="close"></button>
       </div>
     <script src="./assets/script.js"></script>
-    <script src="./assets/modal.js"></script>
 </body>
 </html>
