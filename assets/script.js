@@ -8,6 +8,11 @@ var recServModal = document.getElementById("write-recipe-servings");
 var recIngModal = document.getElementById("write-recipe-ingredients");
 var recInsModal = document.getElementById("write-recipe-instructions");
 
+var bevName = document.getElementById("drink-name");
+var bevIngredients = document.getElementById("ingredients");
+var bevInstructions = document.getElementById("instructions");
+
+
 // Beverage API permissions
 const bevOptions = {
   method: "GET",
@@ -76,11 +81,11 @@ var displayRecipes = function (recipeArray) {
   }
 };
 
-// Listens for which button is clicked
+// click handler for modal functionality
 var buttonClickHandler = function (event) {
   var clickedRecipe = event.target.textContent;
   console.log(clickedRecipe);
-  // document.addEventListener("DOMContentLoaded", () => {
+   //document.addEventListener("DOMContentLoaded", () => {
   // Functions to open and close a modal
   function openModal($el) {
     $el.classList.add("is-active");
@@ -99,18 +104,48 @@ var buttonClickHandler = function (event) {
   // Add a click event on buttons to open a specific modal
   (document.querySelectorAll(".js-modal-trigger") || []).forEach(($trigger) => {
     const modal = $trigger.dataset.target;
-    const recipeModal = JSON.parse(localStorage.getItem(clickedRecipe));
-    console.log(recipeModal);
-    recTitleModal.innerHTML = recipeModal.title;
-    recServModal.innerHTML = recipeModal.servings;
-    recIngModal.innerHTML = recipeModal.ingredients;
-    recInsModal.innerHTML = recipeModal.instructions;
-    const $target = document.getElementById(modal);
+    
+   
 
-    $trigger.addEventListener("click", () => {
+     $trigger.addEventListener("click", () => { //meal listener to populate modal
       console.log("test");
+      const recipeModal = JSON.parse(localStorage.getItem(clickedRecipe));
+      //console.log(recipeModal.name); //bev name test
+      //console.log(recipeModal);
+      
+      //recTitleModal.innerHTML = recipeModal.title;
+      //bevName.innerHTML = recipeModal.name;
+
+      if (recipeModal.title) {
+        recTitleModal.innerHTML = recipeModal.title;
+      } else if (recipeModal.name){
+        recTitleModal.innerHTML = recipeModal.name;
+      } else {
+        recTitleModal.innerHTML = "";
+      }
+
+      if (recipeModal.servings){
+        recServModal.innerHTML = recipeModal.servings;
+      } else {
+        recServModal.innerHTML = "";
+      }
+      //recServModal.innerHTML = recipeModal.servings;
+      recIngModal.innerHTML = recipeModal.ingredients;
+      recInsModal.innerHTML = recipeModal.instructions;
+      const $target = document.getElementById(modal);
       openModal($target);
-    });
+    })
+
+    /*$trigger.addEventListener("click", () => { //beverage listener to populate modal
+      console.log("test");
+      const recipeModal = JSON.parse(localStorage.getItem(clickedRecipe));
+      //console.log(recipeModal);
+      bevName.innerHTML = recipeModal.name;
+      bevIngredients.innerHTML = recipeModal.ingredients;
+      bevInstructions.innerHTML = recipeModal.instructions;
+      const $target = document.getElementById(modal);
+      openModal($target);
+    });*/
   });
 
   // Add a click event on various child elements to close the parent modal
@@ -162,7 +197,7 @@ var displayBevRecipes = function (recipeArray) {
     );
     var createList = document.createElement("li");
     var createLink = document.createElement("button");
-    createList.setAttribute("class", "js-modal-trigger");
+    createLink.setAttribute("class", "js-modal-trigger");
     createLink.setAttribute("data-target", "modal-js-example");
     createLink.textContent = recipeArray[index].name;
     console.log(createList);
