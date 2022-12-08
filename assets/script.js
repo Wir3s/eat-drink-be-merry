@@ -154,14 +154,26 @@ var beverageSearch = function (bevReq) {
 // Displays beverage recipes
 var displayBevRecipes = function (recipeArray) {
   console.log(recipeArray);
+  
   for (let index = 0; index < recipeArray.length; index++) {
+    localStorage.setItem(
+      recipeArray[index].name,
+      JSON.stringify(recipeArray[index])
+    );
     var createList = document.createElement("li");
-    createList.textContent = recipeArray[index].name;
+    var createLink = document.createElement("button");
+    createList.setAttribute("class", "js-modal-trigger");
+    createLink.setAttribute("data-target", "modal-js-example");
+    createLink.textContent = recipeArray[index].name;
     console.log(createList);
+    
     bevResultsEl.appendChild(createList);
+    createList.appendChild(createLink);
   }
 };
+
 
 recipeFormEl.addEventListener("submit", userRecipeInput);
 beverageFormEl.addEventListener("submit", userBevInput);
 recResultsEl.addEventListener("click", buttonClickHandler);
+bevResultsEl.addEventListener("click", buttonClickHandler);
