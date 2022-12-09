@@ -12,6 +12,13 @@ var bevName = document.getElementById("drink-name");
 var bevIngredients = document.getElementById("ingredients");
 var bevInstructions = document.getElementById("instructions");
 
+var shopping = document.getElementById("shop");
+
+var shoppingList = document.getElementById("shopping");
+
+
+
+
 // Beverage API permissions
 const bevOptions = {
   method: "GET",
@@ -80,41 +87,81 @@ var displayRecipes = function (recipeArray) {
   }
 };
 
+
+
 // click handler for modal functionality
-function buttonClickHandler(event) {
-  //meal listener to populate modal
-  const modal = event.target.dataset.target;
-  console.log(modal);
-  var clickedRecipe = event.target.textContent;
-  console.log(clickedRecipe);
-  const recipeModal = JSON.parse(localStorage.getItem(clickedRecipe));
-  //console.log(recipeModal.name); //bev name test
-  //console.log(recipeModal);
+  function buttonClickHandler (event) { 
+      const modal = event.target.dataset.target;
+      console.log(modal)
+      var clickedRecipe = event.target.textContent;
+      console.log(clickedRecipe);
+      const recipeModal = JSON.parse(localStorage.getItem(clickedRecipe));
+      
+      //console.log(recipeModal);
+      //console.log(recipeModal.ingredients);
+
+      
+      
 
   //recTitleModal.innerHTML = recipeModal.title;
   //bevName.innerHTML = recipeModal.name;
 
-  if (recipeModal.title) {
-    recTitleModal.innerHTML = recipeModal.title;
-  } else if (recipeModal.name) {
-    recTitleModal.innerHTML = recipeModal.name;
-  } else {
-    recTitleModal.innerHTML = "";
-  }
+      if (recipeModal.servings){
+        recServModal.innerHTML = recipeModal.servings;
+      } else {
+        recServModal.innerHTML = "";
+      }
+      //recServModal.innerHTML = recipeModal.servings;
+      recIngModal.innerHTML = recipeModal.ingredients;
+      recInsModal.innerHTML = recipeModal.instructions;
+      const $target = document.getElementById(modal);
+      openModal($target);
 
-  if (recipeModal.servings) {
-    recServModal.innerHTML = recipeModal.servings;
-  } else {
-    recServModal.innerHTML = "";
-  }
-  //recServModal.innerHTML = recipeModal.servings;
-  recIngModal.innerHTML = recipeModal.ingredients;
-  recInsModal.innerHTML = recipeModal.instructions;
-  const $target = document.getElementById(modal);
-  openModal($target);
-}
+      shopping.addEventListener("click", saveToShoppingList);
 
-// Add a click event on various child elements to close the parent modal
+    
+
+      
+    }
+
+    function saveToShoppingList(event) {
+      
+    var clickedRecipe
+
+      if (recServModal.innerHTML === "") {
+        clickedRecipe = recIngModal.textContent.split(",")
+      } else {
+        clickedRecipe = recIngModal.textContent.split("|")
+      }
+    
+    
+      //console.log(clickedRecipe);
+      
+      var shopList = document.createElement("ul");
+
+      //shopList.textContent = recIngModal.textContent;
+
+      
+
+      for (let i=0; i < clickedRecipe.length; i++){ 
+        var shopListItem = document.createElement("li");
+        shopListItem.textContent = clickedRecipe[i];
+        shopList.append(shopListItem);
+      }
+
+      shoppingList.append(shopList);
+      
+
+      //for loop for displaying drink ingredients from array?
+      //save button for local storage (set item and get item)
+      //clear button for shopping list 
+      
+    
+    }
+
+
+    
+ // Add a click event on various child elements to close the parent modal
 (
   document.querySelectorAll(
     ".modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button"
