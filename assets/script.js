@@ -77,11 +77,11 @@ var displayRecipes = function (recipeArray) {
     );
     var createList = document.createElement("li");
     var createLink = document.createElement("button");
-    createLink.setAttribute("class", "js-modal-trigger");
+    createLink.setAttribute("class", "js-modal-trigger button");
     createLink.setAttribute("data-target", "modal-js-example");
     createLink.textContent = recipeArray[index].title;
     console.log(createList);
-    createLink.addEventListener("click",buttonClickHandler);
+    createLink.addEventListener("click", buttonClickHandler);
     recResultsEl.appendChild(createList);
     createList.appendChild(createLink);
   }
@@ -103,13 +103,8 @@ var displayRecipes = function (recipeArray) {
       
       
 
-      if (recipeModal.title) {
-        recTitleModal.innerHTML = recipeModal.title;
-      } else if (recipeModal.name){
-        recTitleModal.innerHTML = recipeModal.name;
-      } else {
-        recTitleModal.innerHTML = "";
-      }
+  //recTitleModal.innerHTML = recipeModal.title;
+  //bevName.innerHTML = recipeModal.name;
 
       if (recipeModal.servings){
         recServModal.innerHTML = recipeModal.servings;
@@ -200,7 +195,7 @@ function closeAllModals() {
   (document.querySelectorAll(".modal") || []).forEach(($modal) => {
     closeModal($modal);
   });
-};
+}
 // Display modal
 
 // Beverage fetch code
@@ -218,7 +213,7 @@ var beverageSearch = function (bevReq) {
 // Displays beverage recipes
 var displayBevRecipes = function (recipeArray) {
   console.log(recipeArray);
-  
+
   for (let index = 0; index < recipeArray.length; index++) {
     localStorage.setItem(
       recipeArray[index].name,
@@ -226,16 +221,15 @@ var displayBevRecipes = function (recipeArray) {
     );
     var createList = document.createElement("li");
     var createLink = document.createElement("button");
-    createLink.setAttribute("class", "js-modal-trigger");
+    createLink.setAttribute("class", "js-modal-trigger button");
     createLink.setAttribute("data-target", "modal-js-example");
     createLink.textContent = recipeArray[index].name;
     console.log(createList);
-    createLink.addEventListener("click",buttonClickHandler);
+    createLink.addEventListener("click", buttonClickHandler);
     bevResultsEl.appendChild(createList);
     createList.appendChild(createLink);
   }
 };
-
 
 recipeFormEl.addEventListener("submit", userRecipeInput);
 beverageFormEl.addEventListener("submit", userBevInput);
