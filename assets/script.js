@@ -12,6 +12,12 @@ var bevName = document.getElementById("drink-name");
 var bevIngredients = document.getElementById("ingredients");
 var bevInstructions = document.getElementById("instructions");
 
+var shopping = document.getElementById("shop");
+
+var shoppingList = document.getElementById("shopping");
+
+
+
 
 // Beverage API permissions
 const bevOptions = {
@@ -81,18 +87,21 @@ var displayRecipes = function (recipeArray) {
   }
 };
 
+
+
 // click handler for modal functionality
-  function buttonClickHandler (event) { //meal listener to populate modal
+  function buttonClickHandler (event) { 
       const modal = event.target.dataset.target;
       console.log(modal)
       var clickedRecipe = event.target.textContent;
       console.log(clickedRecipe);
       const recipeModal = JSON.parse(localStorage.getItem(clickedRecipe));
-      //console.log(recipeModal.name); //bev name test
-      //console.log(recipeModal);
       
-      //recTitleModal.innerHTML = recipeModal.title;
-      //bevName.innerHTML = recipeModal.name;
+      //console.log(recipeModal);
+      //console.log(recipeModal.ingredients);
+
+      
+      
 
       if (recipeModal.title) {
         recTitleModal.innerHTML = recipeModal.title;
@@ -112,7 +121,49 @@ var displayRecipes = function (recipeArray) {
       recInsModal.innerHTML = recipeModal.instructions;
       const $target = document.getElementById(modal);
       openModal($target);
+
+      shopping.addEventListener("click", saveToShoppingList);
+
+    
+
+      
     }
+
+    function saveToShoppingList(event) {
+      
+    var clickedRecipe
+
+      if (recServModal.innerHTML === "") {
+        clickedRecipe = recIngModal.textContent.split(",")
+      } else {
+        clickedRecipe = recIngModal.textContent.split("|")
+      }
+    
+    
+      //console.log(clickedRecipe);
+      
+      var shopList = document.createElement("ul");
+
+      //shopList.textContent = recIngModal.textContent;
+
+      
+
+      for (let i=0; i < clickedRecipe.length; i++){ 
+        var shopListItem = document.createElement("li");
+        shopListItem.textContent = clickedRecipe[i];
+        shopList.append(shopListItem);
+      }
+
+      shoppingList.append(shopList);
+      
+
+      //for loop for displaying drink ingredients from array?
+      //save button for local storage (set item and get item)
+      //clear button for shopping list 
+      
+    
+    }
+
 
     
  // Add a click event on various child elements to close the parent modal
