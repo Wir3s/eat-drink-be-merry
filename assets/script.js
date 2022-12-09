@@ -69,6 +69,11 @@ var recipeSearch = function (recipeReq) {
 // Displays recipes
 var displayRecipes = function (recipeArray) {
   console.log(recipeArray);
+  if (recipeArray.length === 0) {
+    var createText = document.createElement("li")
+    createText.textContent = "Ingredient Not Found, Please Try Another Search"
+    recResultsEl.appendChild(createText)
+  } else {
 
   for (let index = 0; index < recipeArray.length; index++) {
     localStorage.setItem(
@@ -84,7 +89,7 @@ var displayRecipes = function (recipeArray) {
     createLink.addEventListener("click", buttonClickHandler);
     recResultsEl.appendChild(createList);
     createList.appendChild(createLink);
-  }
+  }}
 };
 
 
@@ -138,7 +143,7 @@ var displayRecipes = function (recipeArray) {
       //console.log(clickedRecipe);
       
       var shopList = document.createElement("ul");
-
+      shopList.setAttribute("id","List")
       //shopList.textContent = recIngModal.textContent;
 
       
@@ -213,12 +218,18 @@ var beverageSearch = function (bevReq) {
 // Displays beverage recipes
 var displayBevRecipes = function (recipeArray) {
   console.log(recipeArray);
+  if (recipeArray.length === 0) {
+    var createText = document.createElement("li")
+    createText.textContent = "Ingredient Not Found, Please Try Another Search"
+    bevResultsEl.appendChild(createText)
+  } else {
 
   for (let index = 0; index < recipeArray.length; index++) {
     localStorage.setItem(
       recipeArray[index].name,
       JSON.stringify(recipeArray[index])
     );
+    
     var createList = document.createElement("li");
     var createLink = document.createElement("button");
     createLink.setAttribute("class", "js-modal-trigger button");
@@ -228,9 +239,16 @@ var displayBevRecipes = function (recipeArray) {
     createLink.addEventListener("click", buttonClickHandler);
     bevResultsEl.appendChild(createList);
     createList.appendChild(createLink);
-  }
+  }}
 };
 
+function clearlist() {
+  console.log("test")
+  document.getElementById("List").textContent = ""
+  //shoppingList.textContent = ""
+}
+
+document.getElementById("clearlist").addEventListener("click", clearlist);
 recipeFormEl.addEventListener("submit", userRecipeInput);
 beverageFormEl.addEventListener("submit", userBevInput);
 //recResultsEl.addEventListener("click", buttonClickHandler);
