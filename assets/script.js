@@ -75,40 +75,18 @@ var displayRecipes = function (recipeArray) {
     createLink.setAttribute("data-target", "modal-js-example");
     createLink.textContent = recipeArray[index].title;
     console.log(createList);
-
+    createLink.addEventListener("click",buttonClickHandler);
     recResultsEl.appendChild(createList);
     createList.appendChild(createLink);
   }
 };
 
 // click handler for modal functionality
-var buttonClickHandler = function (event) {
-  var clickedRecipe = event.target.textContent;
-  console.log(clickedRecipe);
-   //document.addEventListener("DOMContentLoaded", () => {
-  // Functions to open and close a modal
-  function openModal($el) {
-    $el.classList.add("is-active");
-  }
-
-  function closeModal($el) {
-    $el.classList.remove("is-active");
-  }
-
-  function closeAllModals() {
-    (document.querySelectorAll(".modal") || []).forEach(($modal) => {
-      closeModal($modal);
-    });
-  }
-
-  // Add a click event on buttons to open a specific modal
-  (document.querySelectorAll(".js-modal-trigger") || []).forEach(($trigger) => {
-    const modal = $trigger.dataset.target;
-    
-   
-
-     $trigger.addEventListener("click", () => { //meal listener to populate modal
-      console.log("test");
+  function buttonClickHandler (event) { //meal listener to populate modal
+      const modal = event.target.dataset.target;
+      console.log(modal)
+      var clickedRecipe = event.target.textContent;
+      console.log(clickedRecipe);
       const recipeModal = JSON.parse(localStorage.getItem(clickedRecipe));
       //console.log(recipeModal.name); //bev name test
       //console.log(recipeModal);
@@ -134,44 +112,44 @@ var buttonClickHandler = function (event) {
       recInsModal.innerHTML = recipeModal.instructions;
       const $target = document.getElementById(modal);
       openModal($target);
-    })
-
-    /*$trigger.addEventListener("click", () => { //beverage listener to populate modal
-      console.log("test");
-      const recipeModal = JSON.parse(localStorage.getItem(clickedRecipe));
-      //console.log(recipeModal);
-      bevName.innerHTML = recipeModal.name;
-      bevIngredients.innerHTML = recipeModal.ingredients;
-      bevInstructions.innerHTML = recipeModal.instructions;
-      const $target = document.getElementById(modal);
-      openModal($target);
-    });*/
-  });
-
-  // Add a click event on various child elements to close the parent modal
-  (
-    document.querySelectorAll(
-      ".modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button"
-    ) || []
-  ).forEach(($close) => {
-    const $target = $close.closest(".modal");
-
-    $close.addEventListener("click", () => {
-      closeModal($target);
-    });
-  });
-
-  // Add a keyboard event to close all modals
-  document.addEventListener("keydown", (event) => {
-    const e = event || window.event;
-
-    if (e.keyCode === 27) {
-      // Escape key
-      closeAllModals();
     }
+
+    
+ // Add a click event on various child elements to close the parent modal
+(
+  document.querySelectorAll(
+    ".modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button"
+  ) || []
+).forEach(($close) => {
+  const $target = $close.closest(".modal");
+
+  $close.addEventListener("click", () => {
+    closeModal($target);
+  });
+});
+
+// Add a keyboard event to close all modals
+document.addEventListener("keydown", (event) => {
+  const e = event || window.event;
+
+  if (e.keyCode === 27) {
+    // Escape key
+    closeAllModals();
+  }
+});
+function openModal($el) {
+  $el.classList.add("is-active");
+}
+
+function closeModal($el) {
+  $el.classList.remove("is-active");
+}
+
+function closeAllModals() {
+  (document.querySelectorAll(".modal") || []).forEach(($modal) => {
+    closeModal($modal);
   });
 };
-
 // Display modal
 
 // Beverage fetch code
@@ -201,7 +179,7 @@ var displayBevRecipes = function (recipeArray) {
     createLink.setAttribute("data-target", "modal-js-example");
     createLink.textContent = recipeArray[index].name;
     console.log(createList);
-    
+    createLink.addEventListener("click",buttonClickHandler);
     bevResultsEl.appendChild(createList);
     createList.appendChild(createLink);
   }
@@ -210,5 +188,5 @@ var displayBevRecipes = function (recipeArray) {
 
 recipeFormEl.addEventListener("submit", userRecipeInput);
 beverageFormEl.addEventListener("submit", userBevInput);
-recResultsEl.addEventListener("click", buttonClickHandler);
-bevResultsEl.addEventListener("click", buttonClickHandler);
+//recResultsEl.addEventListener("click", buttonClickHandler);
+//bevResultsEl.addEventListener("click", buttonClickHandler);
