@@ -1,1 +1,16 @@
+* {
+    margin: 10px;
+    padding: 10px;
+}
 
+body {
+    background-color: rgb(168, 158, 151);
+}
+
+.orange {
+    background-color: rgb(206, 119, 20);
+}
+
+.button {
+    white-space: pre-line;
+}
