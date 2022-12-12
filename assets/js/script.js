@@ -1,4 +1,4 @@
-//--------------------------------------------- Variable Declarations ---------------------------------------------------// 
+//--------------------------------------------- Variable Declarations ---------------------------------------------------//
 
 var recipeFormEl = document.querySelector("#recipe-search");
 var beverageFormEl = document.querySelector("#beverage-search");
@@ -15,8 +15,7 @@ var bevInstructions = document.getElementById("instructions");
 var shopping = document.getElementById("shop");
 var shoppingList = document.getElementById("shopping");
 
-
-//--------------------------------------------- Beverage API permissions ---------------------------------------------------// 
+//--------------------------------------------- Beverage API permissions ---------------------------------------------------//
 
 const bevOptions = {
   method: "GET",
@@ -26,8 +25,7 @@ const bevOptions = {
   },
 };
 
-
-//--------------------------------------------- Recipe API permissions ---------------------------------------------------// 
+//--------------------------------------------- Recipe API permissions ---------------------------------------------------//
 
 const recipeOptions = {
   method: "GET",
@@ -37,52 +35,43 @@ const recipeOptions = {
   },
 };
 
-
-//--------------------------------------------- Recipe search function ---------------------------------------------------// 
+//--------------------------------------------- Recipe search function ---------------------------------------------------//
 
 var userRecipeInput = function (event) {
   event.preventDefault();
   var recSearchInput = document.getElementById("requested-recipe").value;
-  console.log(recSearchInput);
   recResultsEl.innerHTML = "";
   recipeSearch(recSearchInput);
 };
 
-
-//--------------------------------------------- Beverage search function ---------------------------------------------------// 
+//--------------------------------------------- Beverage search function ---------------------------------------------------//
 
 var userBevInput = function (event) {
   event.preventDefault();
   var bevSearchInput = document.getElementById("requested-beverage").value;
-  console.log(bevSearchInput);
   bevResultsEl.innerHTML = "";
   beverageSearch(bevSearchInput);
 };
 
-
-//--------------------------------------------- Recipe fetch code ---------------------------------------------------// 
+//--------------------------------------------- Recipe fetch code ---------------------------------------------------//
 
 var recipeSearch = function (recipeReq) {
   var recipeQueryURL =
     "https://recipe-by-api-ninjas.p.rapidapi.com/v1/recipe?query=" + recipeReq;
-  console.log(recipeQueryURL);
   fetch(recipeQueryURL, recipeOptions)
     .then((response) => response.json())
     .then((response) => displayRecipes(response))
     .catch((err) => console.error(err));
 };
 
-
-//--------------------------------------------- Displays recipes ---------------------------------------------------// 
+//--------------------------------------------- Displays recipes ---------------------------------------------------//
 
 var displayRecipes = function (recipeArray) {
-  console.log(recipeArray);
   if (recipeArray.length === 0) {
-    var createText = document.createElement("li")
-    createText.textContent = "Ingredient Not Found, Please Try Another Search"
-    recResultsEl.appendChild(createText)
+    var createText = document.createElement("li");
+    createText.textContent = "Ingredient Not Found, Please Try Another Search";
+    recResultsEl.appendChild(createText);
   } else {
-
     for (let index = 0; index < recipeArray.length; index++) {
       localStorage.setItem(
         recipeArray[index].title,
@@ -90,10 +79,12 @@ var displayRecipes = function (recipeArray) {
       );
       var createList = document.createElement("li");
       var createLink = document.createElement("button");
-      createLink.setAttribute("class", "js-modal-trigger button is-fullwidth is-justify-content-flex-start");
+      createLink.setAttribute(
+        "class",
+        "js-modal-trigger button is-fullwidth is-justify-content-flex-start"
+      );
       createLink.setAttribute("data-target", "modal-js-example");
       createLink.textContent = recipeArray[index].title;
-      console.log(createList);
       createLink.addEventListener("click", buttonClickHandler);
       recResultsEl.appendChild(createList);
       createList.appendChild(createLink);
@@ -101,24 +92,12 @@ var displayRecipes = function (recipeArray) {
   }
 };
 
-
 //--------------------------------------------- click handler for modal functionality ---------------------------------------------------//
 
 function buttonClickHandler(event) {
   const modal = event.target.dataset.target;
-  console.log(modal)
   var clickedRecipe = event.target.textContent;
-  console.log(clickedRecipe);
   const recipeModal = JSON.parse(localStorage.getItem(clickedRecipe));
-
-  //console.log(recipeModal);
-  //console.log(recipeModal.ingredients);
-
-
-
-
-  //recTitleModal.innerHTML = recipeModal.title;
-  //bevName.innerHTML = recipeModal.name;
 
   if (recipeModal.servings) {
     recServModal.innerHTML = recipeModal.servings;
@@ -131,39 +110,24 @@ function buttonClickHandler(event) {
   } else {
     recTitleModal.innerHTML = recipeModal.name;
   }
-  //recServModal.innerHTML = recipeModal.servings;
-  // recTitleModal.innerHTML = recipeModal.title;
-  //bevName.innerHTML = recipeModal.name;
   recIngModal.innerHTML = recipeModal.ingredients;
   recInsModal.innerHTML = recipeModal.instructions;
   const $target = document.getElementById(modal);
   openModal($target);
 
   shopping.addEventListener("click", saveToShoppingList);
-
-
-
-
 }
 
 function saveToShoppingList(event) {
-
-  var clickedRecipe
+  var clickedRecipe;
 
   if (recServModal.innerHTML === "") {
-    clickedRecipe = recIngModal.textContent.split(",")
+    clickedRecipe = recIngModal.textContent.split(",");
   } else {
-    clickedRecipe = recIngModal.textContent.split("|")
+    clickedRecipe = recIngModal.textContent.split("|");
   }
-
-
-  //console.log(clickedRecipe);
-
   var shopList = document.createElement("ul");
-  shopList.setAttribute("id", "List")
-  //shopList.textContent = recIngModal.textContent;
-
-
+  shopList.setAttribute("id", "List");
 
   for (let i = 0; i < clickedRecipe.length; i++) {
     var shopListItem = document.createElement("li");
@@ -172,17 +136,9 @@ function saveToShoppingList(event) {
   }
 
   shoppingList.append(shopList);
-
-
-  //  for loop for displaying drink ingredients from array?
-  // save button for local storage (set item and get item)
-  // clear button for shopping list
-
-
 }
 
-
-//--------------------------------------------- Add a click event on various child elements to close the parent modal ---------------------------------------------------// 
+//--------------------------------------------- Add a click event on various child elements to close the parent modal ---------------------------------------------------//
 
 (
   document.querySelectorAll(
@@ -196,8 +152,7 @@ function saveToShoppingList(event) {
   });
 });
 
-
-//--------------------------------------------- Add a keyboard event to close all modals ---------------------------------------------------// 
+//--------------------------------------------- Add a keyboard event to close all modals ---------------------------------------------------//
 
 document.addEventListener("keydown", (event) => {
   const e = event || window.event;
@@ -221,33 +176,27 @@ function closeAllModals() {
   });
 }
 
-
-//--------------------------------------------- Display modal ---------------------------------------------------// 
-
-//--------------------------------------------- Beverage fetch code ---------------------------------------------------// 
+//--------------------------------------------- Beverage fetch code ---------------------------------------------------//
 
 var beverageSearch = function (bevReq) {
   var bevQueryURL =
     "https://cocktail-by-api-ninjas.p.rapidapi.com/v1/cocktail?ingredients=" +
     bevReq;
-  console.log(bevQueryURL);
   fetch(bevQueryURL, bevOptions)
     .then((response) => response.json())
     .then((response) => displayBevRecipes(response))
     .catch((err) => console.error(err));
 };
 
-
-//--------------------------------------------- Displays beverage recipes ---------------------------------------------------// 
+//--------------------------------------------- Displays beverage recipes ---------------------------------------------------//
 
 var displayBevRecipes = function (recipeArray) {
   console.log(recipeArray);
   if (recipeArray.length === 0) {
-    var createText = document.createElement("li")
-    createText.textContent = "Ingredient Not Found, Please Try Another Search"
-    bevResultsEl.appendChild(createText)
+    var createText = document.createElement("li");
+    createText.textContent = "Ingredient Not Found, Please Try Another Search";
+    bevResultsEl.appendChild(createText);
   } else {
-
     for (let index = 0; index < recipeArray.length; index++) {
       localStorage.setItem(
         recipeArray[index].name,
@@ -256,10 +205,12 @@ var displayBevRecipes = function (recipeArray) {
 
       var createList = document.createElement("li");
       var createLink = document.createElement("button");
-      createLink.setAttribute("class", "js-modal-trigger button is-fullwidth is-justify-content-flex-start");
+      createLink.setAttribute(
+        "class",
+        "js-modal-trigger button is-fullwidth is-justify-content-flex-start"
+      );
       createLink.setAttribute("data-target", "modal-js-example");
       createLink.textContent = recipeArray[index].name;
-      console.log(createList);
       createLink.addEventListener("click", buttonClickHandler);
       bevResultsEl.appendChild(createList);
       createList.appendChild(createLink);
@@ -268,16 +219,11 @@ var displayBevRecipes = function (recipeArray) {
 };
 
 function clearlist() {
-  console.log("test")
-  document.getElementById("List").textContent = ""
-  //shoppingList.textContent = ""
+  document.getElementById("List").textContent = "";
 }
 
-
-//--------------------------------------------- Event Listeners  ---------------------------------------------------// 
+//--------------------------------------------- Event Listeners  ---------------------------------------------------//
 
 document.getElementById("clearlist").addEventListener("click", clearlist);
 recipeFormEl.addEventListener("submit", userRecipeInput);
 beverageFormEl.addEventListener("submit", userBevInput);
-//recResultsEl.addEventListener("click", buttonClickHandler);
-//bevResultsEl.addEventListener("click", buttonClickHandler);
