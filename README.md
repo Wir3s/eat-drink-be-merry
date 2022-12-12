@@ -36,17 +36,21 @@ Once chosen, you'll be provided a similar modal to the food choices, however, yo
 
 If the drink is not to your choosing you can hit the 'Cancel' button and try again.
 
-See below for Screenshots of our site:
+See below for a screenshots of our site:
 
-![Food and Drink Search](./assets/Images/InitialWebSite.PNG)
-![Food and Drink Results](./assets/Images/WebSitewSearchResults.PNG)
+![Food and Drink Search](./assets/Images/eat-drink-screenshot.png)
+
 
 ## Credits
 
-T - Taylor Sample https://github.com/Taysa86 
-A - Andre Bessette https://github.com/Wir3s
-S - Sean McGuire https://github.com/swmcguire 
-C - Colin Bradshaw https://github.com/lilcguy 
+T - Taylor Sample https://github.com/Taysa86  
+
+A - Andre Bessette https://github.com/Wir3s  
+
+S - Sean McGuire https://github.com/swmcguire  
+
+C - Colin Bradshaw https://github.com/lilcguy  
+ 
 
 APIs Used:
 
